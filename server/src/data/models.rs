@@ -5865,7 +5865,7 @@ pub struct HighlightOptions {
     /// Custom html tag which should appear before highlights. If not specified, this defaults to '<b><mark>'.
     pub pre_tag: Option<String>,
     /// Custom html tag which should appear after highlights. If not specified, this defaults to '</mark></b>'.
-    pub post_tag: Option<String>
+    pub post_tag: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, ToSchema, Default)]
