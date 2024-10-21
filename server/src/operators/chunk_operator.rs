@@ -1454,6 +1454,8 @@ pub fn get_highlights_with_exact_match(
     max_length: Option<u32>,
     max_num: Option<u32>,
     window_size: Option<u32>,
+    pre_tag: Option<String>,
+    post_tag: Option<String>
 ) -> Result<(ChunkMetadata, Vec<String>), ServiceError> {
     let content = convert_html_to_text(&(input.chunk_html.clone().unwrap_or_default()));
     let cleaned_query = query.replace(
