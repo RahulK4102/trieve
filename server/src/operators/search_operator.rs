@@ -1233,9 +1233,7 @@ pub async fn retrieve_chunks_for_groups(
                                             ]),
                                             highlight_options.highlight_max_length,
                                             highlight_options.highlight_max_num,
-                                            highlight_options.highlight_window,
-                                            highlight_options.pre_tag.clone(),
-                                            highlight_options.post_tag.clone()
+                                            highlight_options.highlight_window
                                         )
                                         .unwrap_or((chunk.clone().into(), vec![]))
                                 },
@@ -1255,8 +1253,6 @@ pub async fn retrieve_chunks_for_groups(
                                             highlight_options.highlight_max_length,
                                             highlight_options.highlight_max_num,
                                             highlight_options.highlight_window,
-                                            highlight_options.pre_tag.clone(),
-                                            highlight_options.post_tag.clone()
                                         )
                                         .unwrap_or((chunk.clone().into(), vec![]))
                                 },
@@ -1495,9 +1491,7 @@ pub async fn retrieve_chunks_from_point_ids(
                                             ]),
                                             highlight_options.highlight_max_length,
                                             highlight_options.highlight_max_num,
-                                            highlight_options.highlight_window,
-                                            highlight_options.pre_tag.clone(),
-                                            highlight_options.post_tag.clone()
+                                            highlight_options.highlight_window
                                         )
                                         .unwrap_or((chunk.clone().into(), vec![]))
                                 },
@@ -1517,8 +1511,6 @@ pub async fn retrieve_chunks_from_point_ids(
                                             highlight_options.highlight_max_length,
                                             highlight_options.highlight_max_num,
                                             highlight_options.highlight_window,
-                                            highlight_options.pre_tag.clone(),
-                                            highlight_options.post_tag.clone()
                                         )
                                         .unwrap_or((chunk.clone().into(), vec![]))
                                 },

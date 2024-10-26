@@ -1454,16 +1454,12 @@ pub fn get_highlights_with_exact_match(
     max_length: Option<u32>,
     max_num: Option<u32>,
     window_size: Option<u32>,
-    pre_tag: Option<String>,
-    post_tag: Option<String>,
 ) -> Result<(ChunkMetadata, Vec<String>), ServiceError> {
     let content = convert_html_to_text(&(input.chunk_html.clone().unwrap_or_default()));
     let cleaned_query = query.replace(
         |c: char| (delimiters.contains(&c.to_string()) && c != ' ') || c == '\"',
         "",
     );
-    let pre_tag = pre_tag.unwrap_or("<mark><b>".to_string());
-    let post_tag = post_tag.unwrap_or("</b></mark>".to_string());
 
     let stop_words = get_stop_words();
     let query_parts_split_by_stop_words: Vec<String> = cleaned_query
@@ -1876,15 +1872,13 @@ pub fn get_highlights_with_exact_match(
                     }
 
                     new_x = format!(
-                        "{}{}{}{}{}",
+                        "{}<mark><b>{}</b></mark>{}",
                         &new_x.get(0..query_idx).unwrap_or_default(),
-                        pre_tag,
                         &new_x.get(query_idx..query_end).unwrap_or_default(),
-                        post_tag,
                         &new_x.get(query_end..).unwrap_or_default()
                     );
                 }
-                new_x = new_x.replace(format!("{}{}", pre_tag, post_tag), "");
+                new_x = new_x.replace("<mark><b></b></mark>", "");
 
                 if new_x != x {
                     Some(new_x)
@@ -2029,7 +2023,7 @@ pub fn get_highlights_with_exact_match(
         }
         let highlighted_phrase = phrase.replace(
             phrase.trim(),
-            &format!("{}{}{}", pre_tag, phrase.trim(), post_tag),
+            &format!("<mark><b>{}</b></mark>", phrase.trim()),
         );
         let windowed_phrase = format!("{}{}{}", prev_phrase, highlighted_phrase, next_phrase);
         windowed_phrases.push(windowed_phrase);
@@ -2060,8 +2054,6 @@ pub fn get_highlights(
     max_length: Option<u32>,
     max_num: Option<u32>,
     window_size: Option<u32>,
-    pre_tag: Option<String>,
-    post_tag: Option<String>,
 ) -> Result<(ChunkMetadata, Vec<String>), ServiceError> {
     let content = convert_html_to_text(&(input.chunk_html.clone().unwrap_or_default()));
     let search_options = SearchOptions::new().threshold(threshold.unwrap_or(0.8));
@@ -2108,9 +2100,6 @@ pub fn get_highlights(
         ));
     }
 
-    let pre_tag = pre_tag.unwrap_or("<mark><b>".to_string());
-    let post_tag = post_tag.unwrap_or("</b></mark>".to_string());
-
     let half_window = std::cmp::max(window / 2, 1);
     // edge case 1: When the half window size is greater than the length of left or right phrase,
     // we need to search further to get the correct windowed phrase
@@ -2118,7 +2107,6 @@ pub fn get_highlights(
     let mut windowed_phrases = vec![];
     // Used to keep track of the number of words used in the phrase
     let mut used_phrases: HashMap<usize, usize> = HashMap::new();
-
     for idx in matched_idxs.clone() {
         let phrase = get_slice_from_vec_string(split_content.clone(), idx)?;
         let mut next_phrase = String::new();
@@ -2191,10 +2179,9 @@ pub fn get_highlights(
                 start -= 1;
             }
         }
-
         let highlighted_phrase = phrase.replace(
             phrase.trim(),
-            &format!("{}{}{}", pre_tag, phrase.trim(), post_tag),
+            &format!("<mark><b>{}</b></mark>", phrase.trim()),
         );
         let windowed_phrase = format!("{}{}{}", prev_phrase, highlighted_phrase, next_phrase);
         windowed_phrases.push(windowed_phrase);
