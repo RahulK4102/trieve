@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.13.0](https://github.com/devflowinc/trieve/compare/v0.12.1...v0.13.0) (2024-10-28)
+
+
+### Features
+
+* better tooltip component ([2f81c38](https://github.com/devflowinc/trieve/commit/2f81c386f85c7e521e26c12fb9a94e814f482bd3))
+* bulk delete chunks ([e65889a](https://github.com/devflowinc/trieve/commit/e65889a13715e8833e7cccfe0168b57c1fc966cc))
+
+
+### Cleanup
+
+* remove deprecated direction prop for tooltip ([9cd45f5](https://github.com/devflowinc/trieve/commit/9cd45f5e157bc769e357ab849b980dce3946a36c))
+
 ## [0.12.1](https://github.com/devflowinc/trieve/compare/v0.12.0...v0.12.1) (2024-10-25)
 
 
